@@ -1,9 +1,21 @@
 import subprocess
 import csv
+from datetime import datetime
+import logging
+
+logging.basicConfig(
+    filename="ping_log.txt",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 def ping(host):
     try: 
-        output = subprocess.run(["ping", "-n", "1", host], capture_output=True, text=True)
+        output = subprocess.run(
+            ["ping", "-n", "1", host], 
+            capture_output=True, 
+            text=True
+        )
 
         if "TTL=" in output.stdout:
             return "Reachable"
@@ -20,13 +32,19 @@ if __name__ == "__main__":
 
     for host in hosts:
         status = ping(host)
-        print(f"{host} -> {status}")
-        results.append([host, status])
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"{timestamp} | {host} -> {status}")
+        
+        #add to results for csv
+        results.append([timestamp, host, status])
+
+        #log the results
+        logging.info(f"{host} -> {status}")
 
     with open("ping_results.csv", "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["Host", "Status"])
+        writer.writerow(["Timestamp","Host", "Status"])
         writer.writerows(results)
     
-    print("\nResults saved to ping_results.csv")
+    print("\nResults saved to ping_results.csv and ping_log.txt")
 

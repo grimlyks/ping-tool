@@ -1,6 +1,6 @@
-Host,Status
-google.com,Reachable
-instagram.com,Reachable
-linkedin.com,Reachable
-infotu.livepro.com.au,Not Reachable
-facebook.com,Reachable
+Timestamp,Host,Status
+2025-09-07 01:19:53,google.com,Reachable
+2025-09-07 01:19:53,instagram.com,Reachable
+2025-09-07 01:19:53,192.168.100.118,Reachable
+2025-09-07 01:19:57,infotu.livepro.com.au,Not Reachable
+2025-09-07 01:20:01,myworkday.com,Not Reachable
